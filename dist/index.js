@@ -11,4 +11,3 @@ function enumify(items) {
 export {
   enumify
 };
-//# sourceMappingURL=index.js.map
