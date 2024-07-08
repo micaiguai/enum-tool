@@ -1,0 +1,17 @@
+{
+  "name": "enum-tool",
+  "version": "1.0.0",
+  "description": "enum tool",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsup --watch"
+  },
+  "keywords": ["enum"],
+  "author": "micaiguai",
+  "devDependencies": {
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.3",
+    "vitest": "^1.6.0"
+  }
+}
