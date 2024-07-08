@@ -48,13 +48,13 @@ The `SEX_ENUM` is also a function. It takes single `enum` value as params, retur
 ## 👾 Compare with traditional code
 Not use library
 ```ts
-// init enum
+// init and maintain enum
 const SEX_ENUM = {
   MALE: 0,
   FEMALE: 1
 }
 
-// init enum info
+// init and maintain enum info
 const sexList = [
   { label: 'man', value: SEX_ENUM.MALE },
   { label: 'woman', value: SEX_ENUM.FEMALE },
@@ -72,7 +72,7 @@ if (unknownSex === SEX_ENUM.MALE) {
 ```
 Using library
 ```ts
-// only init at here
+// only init and maintain at here
 const SEX_ENUM = enumify([
   { key: 'MALE', value: 0, meta: { label: 'man' } },
   { key: 'FEMALE', value: 1, meta: { label: 'woman' } }
