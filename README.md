@@ -44,7 +44,7 @@ const SEX_ENUM: {
 The `enumify` is the core function of the lib. It take a array that describe the info of a bunch of `enum`.In single `enum` info obj, the `key` field is matched with the key of `SEX_ENUM`, the `value` is matched with the value of `SEX_ENUM`. You can set custom data in `meta` field.
 The `SEX_ENUM` is also a function. It takes single `enum` value as params, return associated info.
 
-## 👾 Compare with traditional Code
+## 👾 Compare with traditional code
 Not use library
 ```ts
 // init enum
@@ -59,7 +59,7 @@ const sexList = [
   { label: 'woman', value: SEX_ENUM.FEMALE },
 ]
 
-// mock enumValue from backend
+// mock enum value from backend
 const unknownSex = 0
 
 // render
@@ -77,7 +77,7 @@ const SEX_ENUM = enumify([
   { key: 'FEMALE', value: 1, meta: { label: 'woman' } }
 ] as const)
 
-// mock enumValue from backend
+// mock enum value from backend
 const unknownSex = 0
 
 // render female info
