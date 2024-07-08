@@ -1,6 +1,7 @@
 type Item = {
   key: string
   value: unknown
+  meta?: {}
 }
 
 type MergeInsertions<T> =
@@ -12,7 +13,7 @@ type GetItem<L extends readonly Item[], V extends unknown> = L extends readonly 
   ? V extends F['value']
     ? F
     : GetItem<R, V>
-  : never
+  : MergeInsertions<Item> | undefined
 
 type EnumInfo<T extends readonly Item[], E = {}> = T extends readonly [infer F extends Item, ...infer R extends Item[]]
   ? EnumInfo<
