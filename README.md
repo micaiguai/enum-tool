@@ -7,6 +7,11 @@ The purpose of this library is resolving the troubled expressions in actual deve
 - 💪 Type Strong: Written in TypeScript
 - 💡 Code Intelligence: Powered by Typescript
 
+## 📦 Install
+``` bash
+npm i enum-tool
+```
+
 ## 🦄 Usage
 ```ts
 import { enumify } from 'enum-tool'
@@ -47,13 +52,16 @@ const SEX_ENUM = {
   MALE: 0,
   FEMALE: 1
 }
+
 // init enum info
 const sexList = [
   { label: 'man', value: SEX_ENUM.MALE },
   { label: 'woman', value: SEX_ENUM.FEMALE },
 ]
+
 // mock enumValue from backend
 const unknownSex = 0
+
 // render
 if (unknownSex === SEX_ENUM.MALE) {
   // tip: there has no code intelligence, you can't get female info in coding
@@ -68,17 +76,14 @@ const SEX_ENUM = enumify([
   { key: 'MALE', value: 0, meta: { label: 'man' } },
   { key: 'FEMALE', value: 1, meta: { label: 'woman' } }
 ] as const)
+
 // mock enumValue from backend
 const unknownSex = 0
+
 // render female info
 if (unknownSex === SEX_ENUM.MALE) {
   // you can get code intelligence here
   const femaleInfo = SEX_ENUM(SEX_ENUM.FEMALE)
   render(femaleInfo)
 }
-```
-
-## 📦 Install
-``` bash
-npm i enum-tool
 ```
