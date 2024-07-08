@@ -1,6 +1,6 @@
 {
   "name": "enum-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "enum tool",
   "main": "index.js",
   "type": "module",
@@ -9,7 +9,9 @@
     "build": "tsup",
     "publish": "np --no-tests"
   },
-  "keywords": ["enum"],
+  "keywords": [
+    "enum"
+  ],
   "author": "micaiguai",
   "devDependencies": {
     "tsup": "^8.1.0",
