@@ -1,7 +1,7 @@
 {
   "name": "enum-tool",
   "version": "1.0.3",
-  "description": "enum tool",
+  "description": "a enum tool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -11,7 +11,9 @@
     "publish": "pnpm run build && np --no-tests"
   },
   "keywords": [
-    "enum"
+    "enum",
+    "tool",
+    "typescript"
   ],
   "author": "micaiguai",
   "devDependencies": {
