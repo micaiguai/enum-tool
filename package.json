@@ -4,6 +4,8 @@
   "description": "a enum tool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "homepage": "https://www.npmjs.com/package/enum-tool",
+  "repository": "https://github.com/micaiguai/enum-tool",
   "type": "module",
   "scripts": {
     "dev": "tsup --watch",
