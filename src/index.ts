@@ -24,6 +24,10 @@ type EnumInfo<T extends readonly Item[], E = {}> = T extends readonly [infer F e
     >
   : E
 
+export type EnumValue<E extends {}> = MergeInsertions<E> extends Record<string, infer T>
+  ? T
+  : never
+
 export function enumify<T extends readonly Item[]>(items: T): EnumInfo<T> & (<V>(value: V) => GetItem<T, V>) {
   const obj: any = (value: unknown) => {
     return items.find(item => item.value === value)
@@ -33,4 +37,3 @@ export function enumify<T extends readonly Item[]>(items: T): EnumInfo<T> & (<V>
   })
   return obj
 }
-
