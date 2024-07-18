@@ -19,7 +19,6 @@
     "dist/*",
     "package.json"
   ],
-
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
@@ -29,6 +28,10 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.23.0",
+    "eslint": "^9.7.0",
+    "lint-staged": "^15.2.7",
+    "simple-git-hooks": "^2.11.1",
     "tsup": "^8.1.0",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0"
