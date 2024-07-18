@@ -12,68 +12,74 @@ The purpose of this library is resolving the troubled expressions in actual deve
 npm i enum-tool
 ```
 
-## 🦄 Usage
+## 🦄 Full Usage
 ```ts
 import { enumify } from 'enum-tool'
 
 // init enum
 // tip: you must use `as const` at the end of array.
 //      you can also use /** @type {const} */ in javascript develop environment
-const SEX_ENUM = enumify([
-  { key: 'MALE', value: 0, meta: { label: 'man' } },
-  { key: 'FEMALE', value: 1, meta: { label: 'female' } },
+const sexEnum = enumify([
+  { key: 'MALE', value: 'male', meta: { label: 'man' } },
+  { key: 'FEMALE', value: 'female', meta: { label: 'woman' } },
 ] as const)
 
 // output: 0
 // you can get code intelligence here
-console.log(SEX_ENUM.MALE)
+console.log(sexEnum.MALE)
 
-const femaleInfo = SEX_ENUM(SEX_ENUM.FEMALE)
+const femaleInfo = sexEnum(sexEnum.FEMALE)
 
 // output: female
 // you can get code intelligence here
 console.log(femaleInfo.meta.label)
+
+// you can extract all enum options by call `all` method
+const items = sexEnum.all()
 ```
-The `SEX_ENUM` is equivalent to
+The `sexEnum` is equivalent to
 ```ts
-const SEX_ENUM: {
-  MALE: 0
-  FEMALE: 1
+const sexEnum: {
+  MALE: 'male'
+  FEMALE: 'female'
 }
 ```
-The `enumify` is the core function of the library. It takes a array as params that describe the info of a bunch of `enum`.In single `enum` info obj, the `key` field is matched with the key of `SEX_ENUM`, the `value` is matched with the value of `SEX_ENUM`. You can set custom data in `meta` field.
+The `enumify` is the core function of the library. It accepts the array of `enum` info as params. In single `enum` info obj, the `key` field is matched with the key of `sexEnum`, the `value` is matched with the value of `sexEnum`. You can set custom data in `meta` field.
 
-The `SEX_ENUM` is also a function. It takes single `enum` value as params, return associated info.
+The `sexEnum` is the return of `enumify` function. It is a enumLike object, and also a function. It can accept single `enum` value as params, then return associated `enum` info.
+
+If you want get the array of `enum` info, you can call `sexEnum.all` method.
 
 ## 👾 Compare with traditional code
 Not use library
 ```ts
 // init and maintain enum
-const SEX_ENUM = {
-  MALE: 0,
-  FEMALE: 1
+const sexEnum = {
+  MALE: 'male',
+  FEMALE: 'female'
 }
 
 // init and maintain enum info
 const sexList = [
-  { label: 'man', value: SEX_ENUM.MALE },
-  { label: 'woman', value: SEX_ENUM.FEMALE },
+  { label: 'man', value: sexEnum.MALE },
+  { label: 'woman', value: sexEnum.FEMALE },
 ]
 
 // mock enum value from backend
-const unknownSex = 0
+const unknownSex = 'male'
 
 // render
-if (unknownSex === SEX_ENUM.MALE) {
+if (unknownSex === sexEnum.MALE) {
   // tip: there has no code intelligence, you can't get female info in coding
-  const femaleInfo = SEX_ENUM(SEX_ENUM.FEMALE)
+  // you need call find method, it is not concision
+  const femaleInfo = sexList.find(item => item.value === unknownSex)
   render(femaleInfo)
 }
 ```
 Using library
 ```ts
 // only init and maintain at here
-const SEX_ENUM = enumify([
+const sexEnum = enumify([
   { key: 'MALE', value: 0, meta: { label: 'man' } },
   { key: 'FEMALE', value: 1, meta: { label: 'woman' } }
 ] as const)
@@ -82,9 +88,9 @@ const SEX_ENUM = enumify([
 const unknownSex = 0
 
 // render female info
-if (unknownSex === SEX_ENUM.MALE) {
+if (unknownSex === sexEnum.MALE) {
   // you can get code intelligence here
-  const femaleInfo = SEX_ENUM(SEX_ENUM.FEMALE)
+  const femaleInfo = sexEnum(sexEnum.FEMALE)
   render(femaleInfo)
 }
 ```
