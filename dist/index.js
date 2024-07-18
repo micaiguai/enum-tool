@@ -1,12 +1,18 @@
 // src/index.ts
+function bindMethods(functionalObj, items) {
+  functionalObj.all = () => {
+    return items;
+  };
+}
 function enumify(items) {
-  const obj = (value) => {
+  const functionalObj = function(value) {
     return items.find((item) => item.value === value);
   };
   items.forEach((item) => {
-    obj[item.key] = item.value;
+    functionalObj[item.key] = item.value;
   });
-  return obj;
+  bindMethods(functionalObj, items);
+  return functionalObj;
 }
 export {
   enumify
