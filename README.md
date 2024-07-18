@@ -50,8 +50,8 @@ The `sexEnum` is the return of `enumify` function. It is a enumLike object, and 
 
 If you want get the array of `enum` info, you can call `sexEnum.all` method.
 
-## 👾 Compare with traditional code
-Not use library
+## 👾 Compare code style with tradition
+### Not use library
 ```ts
 // init and maintain enum
 const sexEnum = {
@@ -76,16 +76,16 @@ if (unknownSex === sexEnum.MALE) {
   render(femaleInfo)
 }
 ```
-Using library
+### Using library
 ```ts
 // only init and maintain at here
 const sexEnum = enumify([
-  { key: 'MALE', value: 0, meta: { label: 'man' } },
-  { key: 'FEMALE', value: 1, meta: { label: 'woman' } }
+  { key: 'MALE', value: 'male', meta: { label: 'man' } },
+  { key: 'FEMALE', value: 'female', meta: { label: 'woman' } }
 ] as const)
 
 // mock enum value from backend
-const unknownSex = 0
+const unknownSex = 'male'
 
 // render female info
 if (unknownSex === sexEnum.MALE) {
