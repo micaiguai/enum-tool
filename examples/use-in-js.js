@@ -14,4 +14,3 @@ console.log('SEX_ENUM :', SEX_ENUM)
 console.log('maleInfo :', maleInfo)
 // output: femaleInfo : { key: 'FEMALE', value: 1 }
 console.log('femaleInfo :', femaleInfo)
-

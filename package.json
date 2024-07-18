@@ -1,32 +1,42 @@
 {
   "name": "enum-tool",
+  "type": "module",
   "version": "1.1.0",
   "description": "a enum tool",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "author": "micaiguai",
   "homepage": "https://www.npmjs.com/package/enum-tool",
   "repository": {
     "url": "https://github.com/micaiguai/enum-tool"
-  },
-  "type": "module",
-  "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
-    "publish": "pnpm run build && np --no-tests"
   },
   "keywords": [
     "enum",
     "tool",
     "typescript"
   ],
-  "author": "micaiguai",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "package.json"
+  ],
+
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "publish": "pnpm run build && np --no-tests",
+    "test": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "devDependencies": {
     "tsup": "^8.1.0",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   },
-  "files": [
-    "dist/*",
-    "package.json"
-  ]
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
 }
