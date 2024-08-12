@@ -10,7 +10,7 @@ type GetItem<L extends readonly Item[], V> = L extends readonly [infer F extends
 type EnumInfo<T extends readonly Item[], E = object> = T extends readonly [infer F extends Item, ...infer R extends Item[]] ? EnumInfo<R, MergeInsertions<E & {
     [K in F['key']]: F['value'];
 }>> : E;
-type EnumValue<E extends object> = MergeInsertions<E> extends Record<string, infer T> ? T : never;
+type EnumValue<E extends object> = MergeInsertions<Omit<E, 'all'>> extends Record<string, infer T> ? T : never;
 type AllMethod<T> = () => T;
 declare function enumify<T extends readonly Item[], O extends EnumInfo<T>, F extends (<V>(value: V) => GetItem<T, V>), R extends O & {
     all: AllMethod<T>;
