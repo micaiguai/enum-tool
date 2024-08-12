@@ -1,7 +1,7 @@
 {
   "name": "enum-tool",
   "type": "module",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "a enum tool",
   "author": "micaiguai",
   "homepage": "https://www.npmjs.com/package/enum-tool",
