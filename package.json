@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "publish": "pnpm run build && git add . && git commit -m \"chore: update\" && np",
+    "publish": "pnpm run build && np",
     "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
