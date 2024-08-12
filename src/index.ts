@@ -24,7 +24,7 @@ type EnumInfo<T extends readonly Item[], E = object> = T extends readonly [infer
   >
   : E
 
-export type EnumValue<E extends object> = MergeInsertions<E> extends Record<string, infer T>
+export type EnumValue<E extends object> = MergeInsertions<Omit<E, 'all'>> extends Record<string, infer T>
   ? T
   : never
 
