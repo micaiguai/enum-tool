@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "publish": "pnpm run build && np",
+    "publish": "np",
     "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
