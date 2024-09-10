@@ -1,6 +1,7 @@
 interface Item {
   key: string
   value: unknown
+  label?: string
   meta?: object
 }
 
@@ -13,7 +14,7 @@ type GetItem<L extends readonly Item[], V> = L extends readonly [infer F extends
   ? V extends F['value']
     ? F
     : GetItem<R, V>
-  : MergeInsertions<Item> | undefined
+  : undefined
 
 type EnumInfo<T extends readonly Item[], E = object> = T extends readonly [infer F extends Item, ...infer R extends Item[]]
   ? EnumInfo<

@@ -2,19 +2,19 @@ import { describe, expectTypeOf, it } from 'vitest'
 import { enumify } from '..'
 
 describe('type', () => {
-  const enumOptList = [
+  const sexList = [
     { key: 'MALE', value: 'male', meta: { label: '男' } },
     { key: 'FEMALE', value: 'female' },
   ] as const
-  const sexEnum = enumify(enumOptList)
+  const SexEnum = enumify(sexList)
 
   it('enum value', () => {
-    expectTypeOf(sexEnum.MALE).toMatchTypeOf<'male'>()
-    expectTypeOf(sexEnum.FEMALE).toMatchTypeOf<'female'>()
+    expectTypeOf(SexEnum.MALE).toMatchTypeOf<'male'>()
+    expectTypeOf(SexEnum.FEMALE).toMatchTypeOf<'female'>()
   })
 
   it('enum info', () => {
-    expectTypeOf(sexEnum(sexEnum.MALE)).toMatchTypeOf<typeof enumOptList[0]>()
-    expectTypeOf(sexEnum(sexEnum.FEMALE)).toMatchTypeOf<typeof enumOptList[1]>()
+    expectTypeOf(SexEnum(SexEnum.MALE)).toMatchTypeOf<typeof sexList[0]>()
+    expectTypeOf(SexEnum(SexEnum.FEMALE)).toMatchTypeOf<typeof sexList[1]>()
   })
 })
