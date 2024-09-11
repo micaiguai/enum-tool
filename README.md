@@ -3,6 +3,9 @@ The purpose of this library is resolving the troubled expressions in actual deve
 - It is bother to manage `enum` and info that is associated with the enum.
 - No Intelligence in traditional coding.
 
+## 📕 Older Version Doc
+- [version1@deprecated](https://github.com/micaiguai/enum-tool/tree/v1)
+
 ## 🚀 Features
 - 💪 Type Strong: Written in TypeScript
 - 💡 Code Intelligence: Powered by Typescript
