@@ -1,4 +1,4 @@
-interface Item {
+export interface EnumItem {
   key: string
   value: unknown
   label?: string
@@ -6,17 +6,25 @@ interface Item {
 }
 
 type MergeInsertions<T> =
-  T extends object
-    ? { [K in keyof T]: MergeInsertions<T[K]> }
-    : T
+  // eslint-disable-next-line ts/no-unsafe-function-type
+  T extends Function
+    ? T
+    : T extends object
+      ? { [K in keyof T]: MergeInsertions<T[K]> }
+      : T
 
-type GetItem<L extends readonly Item[], V> = L extends readonly [infer F extends Item, ...infer R extends Item[]]
-  ? V extends F['value']
-    ? F
-    : GetItem<R, V>
-  : undefined
+type UnionifyArray<ConstEnumList extends readonly EnumItem[], Splitted extends EnumItem = ConstEnumList[0]> = ConstEnumList extends readonly [infer First extends EnumItem, ...infer Rest extends readonly EnumItem[]]
+  ? UnionifyArray<Rest, Splitted | First>
+  : Splitted
 
-type EnumInfo<T extends readonly Item[], E = object> = T extends readonly [infer F extends Item, ...infer R extends Item[]]
+type GetItem<ConstEnumList extends readonly EnumItem[], V, InferEnumItem> =
+  ConstEnumList extends readonly [infer F extends EnumItem, ...infer R extends readonly EnumItem[]]
+    ? V extends F['value']
+      ? F
+      : GetItem<R, V, InferEnumItem>
+    : InferEnumItem | undefined
+
+type EnumInfo<T extends readonly EnumItem[], E = object> = T extends readonly [infer F extends EnumItem, ...infer R extends EnumItem[]]
   ? EnumInfo<
     R,
     MergeInsertions<E & {
@@ -25,30 +33,28 @@ type EnumInfo<T extends readonly Item[], E = object> = T extends readonly [infer
   >
   : E
 
-export type EnumValue<E extends object> = MergeInsertions<Omit<E, 'all'>> extends Record<string, infer T>
+export type EnumValue<E extends object> = MergeInsertions<Omit<E, 'getAll' | 'get'>> extends Record<string, infer T>
   ? T
   : never
 
-type AllMethod<T> = () => T
+type GetAll<T> = () => T
 
-function bindMethods<T, R extends { all: AllMethod<T> }>(functionalObj: R, items: T) {
-  functionalObj.all = () => {
+function bindMethods(enumVO: any, items: readonly EnumItem[]) {
+  enumVO.getAll = () => {
     return items
+  }
+  enumVO.get = (value: unknown) => {
+    return items.find(item => item.value === value)
   }
 }
 
 export function enumify<
-  T extends readonly Item[],
-  O extends EnumInfo<T>,
-  F extends (<V>(value: V) => GetItem<T, V>),
-  R extends O & { all: AllMethod<T> } & F,
->(items: T): R {
-  const functionalObj: any = function (value: unknown) {
-    return items.find(item => item.value === value)
-  }
+  ConstEnumList extends readonly EnumItem[],
+>(items: ConstEnumList): MergeInsertions<EnumInfo<ConstEnumList> & { getAll: GetAll<ConstEnumList>, get: (<Val>(value: Val) => GetItem<ConstEnumList, Val, UnionifyArray<ConstEnumList>>) }> {
+  const enumVo: any = {}
   items.forEach((item) => {
-    functionalObj[item.key] = item.value
+    enumVo[item.key] = item.value
   })
-  bindMethods<T, R>(functionalObj, items)
-  return functionalObj
+  bindMethods(enumVo, items)
+  return enumVo
 }

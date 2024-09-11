@@ -19,78 +19,78 @@ import { enumify } from 'enum-tool'
 // init enum
 // tip: you must use `as const` at the end of array.
 //      you can also use /** @type {const} */ in javascript develop environment
-const sexEnum = enumify([
-  { key: 'MALE', value: 'male', meta: { label: 'man' } },
-  { key: 'FEMALE', value: 'female', meta: { label: 'woman' } },
+const SexEnum = enumify([
+  { key: 'MALE', value: 'male', meta: { desc: 'male' } },
+  { key: 'FEMALE', value: 'female' },
 ] as const)
 
 // output: 0
 // you can get code intelligence here
-console.log(sexEnum.MALE)
+console.log(SexEnum.MALE)
 
-const femaleInfo = sexEnum(sexEnum.FEMALE)
+const maleVo = SexEnum.get(SexEnum.MALE)
 
-// output: female
+// output: male
 // you can get code intelligence here
-console.log(femaleInfo.meta.label)
+console.log(maleVo.value)
 
-// you can extract all enum options by call `all` method
-const items = sexEnum.all()
+// you can get all enum options by call `getAll` method
+const sexList = SexEnum.getAll()
 ```
-The `sexEnum` is equivalent to
+The `SexEnum` is equivalent to
 ```ts
-const sexEnum: {
+const SexEnum: {
   MALE: 'male'
   FEMALE: 'female'
 }
 ```
-The `enumify` is the core function of the library. It accepts the array of `enum` info as params. In single `enum` info obj, the `key` field is matched with the key of `sexEnum`, the `value` is matched with the value of `sexEnum`. You can set custom data in `meta` field.
+The `enumify` is the core function of the library. It accepts the array of `enum` info as params. In single `enum` info obj, the `key` field is matched with the key of `SexEnum`, the `value` is matched with the value of `SexEnum`. You can set custom data in `meta` field.
 
-The `sexEnum` is the return of `enumify` function. It is a enumLike object, and also a function. It can accept single `enum` value as params, then return associated `enum` info.
+Call `SexEnum.get` method get the single enum info.
 
-If you want get the array of `enum` info, you can call `sexEnum.all` method.
+Call `SexEnum.all` method get the all enum info list.
 
 ## 👾 Compare code style with tradition
 ### Not use library
 ```ts
-// init and maintain enum
-const sexEnum = {
+// init enum
+const SexEnum = {
   MALE: 'male',
   FEMALE: 'female'
 }
 
-// init and maintain enum info
+// init enum info list
 const sexList = [
-  { label: 'man', value: sexEnum.MALE },
-  { label: 'woman', value: sexEnum.FEMALE },
+  { label: 'man', value: SexEnum.MALE },
+  { label: 'woman', value: SexEnum.FEMALE },
 ]
 
 // mock enum value from backend
-const unknownSex = 'male'
+const unknownSex = 'unknown'
 
-// render
-if (unknownSex === sexEnum.MALE) {
-  // tip: there has no code intelligence, you can't get female info in coding
+// render info
+if (unknownSex === SexEnum.MALE || unknownSex === SexEnum.FEMALE) {
+  // tip: there has no code intelligence with maleVo, you can't get female info in coding
   // you need call find method, it is not concision
-  const femaleInfo = sexList.find(item => item.value === unknownSex)
-  render(femaleInfo)
+  const maleVo = sexList.find(item => item.value === unknownSex)
+  render(maleVo)
 }
 ```
 ### Using library
 ```ts
 // only init and maintain at here
-const sexEnum = enumify([
+const SexEnum = enumify([
   { key: 'MALE', value: 'male', meta: { label: 'man' } },
   { key: 'FEMALE', value: 'female', meta: { label: 'woman' } }
 ] as const)
 
 // mock enum value from backend
-const unknownSex = 'male'
+const unknownSex = 'unknown'
 
-// render female info
-if (unknownSex === sexEnum.MALE) {
+// render info
+if (unknownSex === SexEnum.MALE || unknownSex === SexEnum.FEMALE) {
   // you can get code intelligence here
-  const femaleInfo = sexEnum(sexEnum.FEMALE)
-  render(femaleInfo)
+  const unknownVo = SexEnum.get(unknownSex)
+  render(unknownVo)
 }
 ```
